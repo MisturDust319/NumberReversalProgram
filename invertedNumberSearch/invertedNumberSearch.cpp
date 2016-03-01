@@ -19,48 +19,29 @@
 //-conditions 1 and 2 in the same file, with 
 //	-the index of the current number out of all processed numbers
 //	-the index of the current number out of all the cond 1 & 2 nums
-//	-the progression to zero (history)
+//	-the progression to zero (History)
 //	-the number itself and the digit preceding zero
 //-condition 3 in a seperate file,
 //	-the index of the current number out of all processed numbers
 //	-the index of the current number out of all the cond 3 nums
-//	-the progression to zero (history)
+//	-the progression to zero (History)
 //	-the 'cycle' of a, b, -a, -b
 
-//#include "stdafx.h"
+
 #include <iostream>
-#include <fstream>
+
+
+#include "outputHandler.h"
+//#include "outputHandler.cpp"
 
 using namespace std;
 
-// reverse number takes an int, and returns
-// a reversal of that int while also keeping
-// the same sign (i.e -123 becomes -321)
-int reverseNumber(int num)
-{
-	int sign = 1;
-	if (num < 0)
-	{
-		sign = -1;
-		num *= -1;
-	}
 
-//this segment taken from:
-//http://fahad-cprogramming.blogspot.com/2013/12/reverse-number-in-c-program-code.html
-	int reverseNum = 0;
-	while (num > 0)
-	{
-		reverseNum	=	reverseNum * 10;
-		reverseNum	+=	num % 10;
-		num			/=	10;
-	}
-
-	return reverseNum * sign;
-}
 
 int main()
 {
-	cout << reverseNumber(-5021) << "\n";
+
+	outputHandler outputDev;
 
     return 0;
 }

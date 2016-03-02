@@ -34,13 +34,20 @@ private:
 		// checks to see if there is a reversal loop
 		bool checkForLoop();
 
+		//prints histArr
+		void printHistArr();
+
+		//clears history files and resets histSize
+		void clearHist();
+
 	private:
 		//History
 		//an array to hold the 4 most recently processed vals
 		//of the currently processed number
 		int histArr[4];
-		
-		int histSize; 
+		//histSize tracks how much data has been pushed into history
+		int histSize;
+
 		//a container to hold the entire History of the currently
 		//processed number
 		std::list<int> histList;
@@ -66,6 +73,8 @@ private:
 	// ints to see how they reverse
 	int startSearch();
 
+
+	//flush memory to 
 	//************
 	//debug 
 	//************

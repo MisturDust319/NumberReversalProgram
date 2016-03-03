@@ -34,9 +34,8 @@
 #include "outputHandler.h"
 //#include "outputHandler.cpp"
 
+
 using namespace std;
-
-
 
 int main()
 {

@@ -5,6 +5,10 @@
 #include <list>
 
 
+#define HIST_ARRAY_SIZE 8
+#define HIST_ARRAY_BACK HIST_ARRAY_SIZE-1
+
+
 using namespace::std;
 
 class outputHandler
@@ -44,7 +48,7 @@ private:
 		//History
 		//an array to hold the 4 most recently processed vals
 		//of the currently processed number
-		int histArr[4];
+		int histArr[HIST_ARRAY_SIZE];
 		//histSize tracks how much data has been pushed into history
 		int histSize;
 
@@ -59,7 +63,7 @@ private:
 	int largestNum;
 	
 	//io obj to save data to file
-	ofstream output;
+	//ofstream ioFile;
 
 	//************
 	//functions

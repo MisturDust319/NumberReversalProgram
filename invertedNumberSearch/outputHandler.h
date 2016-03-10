@@ -44,6 +44,10 @@ private:
 		//clears history files and resets histSize
 		void clearHist();
 
+		//grabs history stored disk AND mem in order
+		//and stores it in the oppropriate file
+		bool storeHist(ofstream&);
+
 	private:
 		//History
 		//an array to hold the 4 most recently processed vals
@@ -62,8 +66,6 @@ private:
 	//largest number to search
 	int largestNum;
 	
-	//io obj to save data to file
-	//ofstream ioFile;
 
 	//************
 	//functions

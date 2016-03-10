@@ -6,7 +6,7 @@
 //of these number combos as possible
 #include <cmath>
 #include <iostream>
-
+#include <sstream>
 
 #define HIST_ARRAY_SIZE 8
 #define HIST_ARRAY_BACK HIST_ARRAY_SIZE-1
@@ -131,6 +131,15 @@ int outputHandler::startSearch() {
 				hist.printHistArr();
 				cout << "--------------" << endl;
 
+				//true code
+				//open save file
+				ofstream outFile("normalNum.csv", ios::out | ios::app);
+				//add column names
+				outFile << "Starting number, "
+					<< "Normal Processed #, "
+					<< "2nd to last #, "
+					<< "History" << endl;
+
 				//break the loop to start check for next num
 				break;
 			}
@@ -229,7 +238,6 @@ bool outputHandler::History::pushData(int data)
 					histIter++)
 				{
 					ioFile << histSize << ", " << *histIter << endl;
-					//cout << histSize << ", " << *histIter;
 				}
 
 				//when done, close output file
@@ -304,5 +312,45 @@ void outputHandler::History::clearHist()
 	// clear histList to prevent data from being
 	// carried between old and new calculations
 	histList.clear();
+
+	//clear the TEMP.CSV file
+	ofstream temp("TEMP.CSV", ios::trunc);
+	temp.close();
+}
+
+bool outputHandler::History::storeHist(ofstream& saveFile)
+{
+	ifstream histFile("TEMP.CSV", ios::in);
+	if (histFile.is_open)
+	{
+		//tac the history onto the end of the save file
+		//start with the data stored on disk
+		while (int line = histFile.getline)
+		{
+			saveFile << "->" << line;
+		}
+
+		//then store the data in the history list
+		for (std::list<int>::iterator iter = histList.begin;
+		iter != histList.end();
+			iter++)
+		{
+			saveFile << "->" << iter*;
+		}
+
+		//Store the data in the history array
+		for (int i = 0; i < HIST_ARRAY_SIZE; i++)
+		{
+			saveFile << "->" << histArr[i];
+		}
+		
+		//add the final \n char
+		saveFile << endl;
+
+		return true;
+	}
+	//otherwise, return false
+	else
+		return false;
 
 }

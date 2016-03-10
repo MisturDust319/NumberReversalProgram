@@ -13,7 +13,8 @@
 //		of '9's and '0's
 // 3. the number eventually becomes reduced to cycling through 8 digits:
 //		a, b, -a, -b, (where a and -a, and b and -b are the same magnitude,
-//		but opposite signs) and their corresponding reversals
+//		but opposite signs) and their corresponding reversals, though
+//		the ordering of these numbers vary
 //*************
 // The goal is to record:
 //-conditions 1 and 2 in the same file, with 

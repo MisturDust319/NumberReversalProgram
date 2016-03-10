@@ -122,6 +122,9 @@ int outputHandler::startSearch() {
 			// w/o a reversal loop
 			if (num == 0)
 			{
+				//increment terminal reversal count
+				normProcessed++;
+
 				//stub code
 				cout << "Stub: reached 0." << endl
 					<< "+++~History~+++" << endl;
@@ -159,23 +162,13 @@ int outputHandler::startSearch() {
 
 				//..and repeat
 			}
-						
-			/*
-			debugCount++;
-			if (debugCount > 1000)
-			{
-				//if here, we're prob stuck in a loop
-				//so print the history and move on
-				cout << "breaking & ouputing history\n probably in reversal loop"
-					<< endl << "start point : " << start
-					<< endl << "debugCount : " << debugCount << endl;
-				hist.printHistArr();
-				debugCount = 0;
-				break;
-			}*/
 		}
 		//reset debug count for each unique number
 		//debugCount = 0;
+
+		//increment total numbers processed
+		numsProcessed++;
+		//clear the history
 		hist.clearHist();
 	}
 

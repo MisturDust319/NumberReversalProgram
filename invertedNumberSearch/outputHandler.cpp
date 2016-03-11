@@ -18,8 +18,7 @@ using namespace std;
 outputHandler::outputHandler()
 {
 	//find this compiler's max int size
-	//largestNum = INT_MAX;
-	largestNum = 100000;
+	largestNum = INT_MAX;
 
 	//counters
 	numsProcessed = 0; //total processed numbers
@@ -92,7 +91,7 @@ int outputHandler::startSearch() {
 	//rev is used to track num's reverse
 	int rev;
 
-	for (int start = 0; start < largestNum; start++, numsProcessed++)
+	for (int start = 0; start <= largestNum; start++, numsProcessed++)
 	{
 		cout << "current #: " << start << endl;
 		/*

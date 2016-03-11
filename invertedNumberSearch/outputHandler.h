@@ -23,7 +23,7 @@ private:
 	//************
 	//counters
 	int numsProcessed; //total processed numbers
-	int normProcessed; //total terminal (non-looping) reversals processed
+	int normProcessed; //total terminating (non-looping) reversals processed
 	int loopProcessed; //total looping reversals processed
 
 	class History {
@@ -48,6 +48,10 @@ private:
 		//and stores it in the oppropriate file
 		bool storeHist(ofstream&);
 
+		//gets a value from history array at index
+		//provided
+		int getHistArrVal(int);
+
 	private:
 		//History
 		//an array to hold the 4 most recently processed vals
@@ -61,6 +65,7 @@ private:
 		std::list<int> histList;
 	};
 	
+	//an instance of the embedded History class
 	History hist;
 
 	//largest number to search
@@ -79,15 +84,13 @@ private:
 	// ints to see how they reverse
 	int startSearch();
 
-
-	//flush memory to 
 	//************
 	//debug 
 	//************
 	//vars
 	//************
 	//used to check for 'reversal cycles'
-	int debugCount;
+	//int debugCount;
 	//************
 	//functions
 	//************

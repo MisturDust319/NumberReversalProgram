@@ -25,13 +25,34 @@ outputHandler::outputHandler()
 	numsProcessed = 0; //total processed numbers
 	normProcessed = 0; //total terminal (non-looping) reversals processed
 	loopProcessed = 0; //total looping reversals processed
+	
+	//Prepare save files by clearing old files &
+	// adding column names
+	//start with 
+	ofstream outFile("terminatingNum.csv", std::fstream::out | std::fstream::trunc);
+	hist.storeHist(outFile);
 
-	//file io obj
-	//ioFile.ofstream();
+	//add column names
+	outFile << "Starting number, "
+		<< "terminating Processed #, "
+		<< "2nd to last #, "
+		<< "History" << endl;
 
+	outFile.close();
+
+	//open save file
+	outFile.open("loopingNum.csv", std::fstream::out | std::fstream::trunc);
+	hist.storeHist(outFile);
+
+	outFile << "Starting number, "
+		<< "Looping Processed #, "
+		<< "Last " << HIST_ARRAY_SIZE << " numbers, "
+		<< "History" << endl;
+
+	outFile.close();
 	//debug vars
 	//used to check for 'reversal cycles'
-	debugCount = 0;
+	//debugCount = 0;
 
 	//instantly start the search
 	startSearch();
@@ -71,7 +92,7 @@ int outputHandler::startSearch() {
 	//rev is used to track num's reverse
 	int rev;
 
-	for (int start = 2000; start < largestNum; start++, numsProcessed++)
+	for (int start = 0; start < largestNum; start++, numsProcessed++)
 	{
 		cout << "current #: " << start << endl;
 		/*
@@ -122,24 +143,27 @@ int outputHandler::startSearch() {
 			// w/o a reversal loop
 			if (num == 0)
 			{
-				//increment terminal reversal count
-				normProcessed++;
+				/*//debug code
 
-				//stub code
 				cout << "Stub: reached 0." << endl
 					<< "+++~History~+++" << endl;
 				hist.printHistArr();
 				cout << "--------------" << endl;
+				*/
+				
+				//increment terminal reversal count
+				normProcessed++;
 
-				//true code
 				//open save file
-				ofstream outFile("normalNum.csv", ios::out | ios::app);
-				//add column names
-				outFile << "Starting number, "
-					<< "Normal Processed #, "
-					<< "2nd to last #, "
-					<< "History" << endl;
+				ofstream outFile("terminatingNum.csv", ios::out | ios::app);
+				
 
+				//add column names
+				outFile << start << ", "
+					<< normProcessed << ", "
+					<< hist.getHistArrVal(HIST_ARRAY_BACK - 1) << ", ";
+
+				hist.storeHist(outFile);
 				//break the loop to start check for next num
 				break;
 			}
@@ -148,11 +172,29 @@ int outputHandler::startSearch() {
 			//if so, break the loop, and save the history
 			else if (hist.checkForLoop())
 			{
-				cout << "broke a reversal loop" << endl;
-				hist.printHistArr();
-
 				//increment the total found reversal loops
 				loopProcessed++;
+				//open save file
+				ofstream outFile("loopingNum.csv", ios::out | ios::app);
+				
+
+				outFile << start << ", " << loopProcessed << ", ";
+
+				for (int i = 0; i < HIST_ARRAY_SIZE; i++)
+					outFile << hist.getHistArrVal(i) << ";";
+
+				outFile << ", ";
+
+				//store all of history from mem
+				hist.storeHist(outFile);
+
+				//close the output file
+				outFile.close();
+
+				/* some debug code
+				cout << "broke a reversal loop" << endl;
+				hist.printHistArr();
+				*/
 
 				//break the loop to start check for next num
 				break;
@@ -321,36 +363,57 @@ void outputHandler::History::clearHist()
 bool outputHandler::History::storeHist(ofstream& saveFile)
 {
 	ifstream histFile("TEMP.CSV", ios::in);
-	if (histFile.is_open)
+	if (histFile.is_open())
 	{
 		//tac the history onto the end of the save file
 		//start with the data stored on disk
-		while (int line = histFile.getline)
+		//begin with just one item
+		//making sure we didn't open to EOF
+		if (histFile)
 		{
-			saveFile << "->" << line;
+			std::string data;
+			histFile >> data;
+			saveFile << data;
+		}
+		//then do the rest, with the proper deliminating char
+		while (histFile)
+		{
+			std::string data;
+			histFile >> data;
+			saveFile << "; " << data;			
 		}
 
 		//then store the data in the history list
-		for (std::list<int>::iterator iter = histList.begin;
+		for (std::list<int>::iterator iter = histList.begin();
 		iter != histList.end();
 			iter++)
 		{
-			saveFile << "->" << iter*;
+			saveFile << "; " << *iter;
 		}
 
+		int i = 0;
+		if (histSize < 8)
+			i = HIST_ARRAY_SIZE - histSize;
 		//Store the data in the history array
-		for (int i = 0; i < HIST_ARRAY_SIZE; i++)
+		for (; i < HIST_ARRAY_SIZE; i++)
 		{
-			saveFile << "->" << histArr[i];
+			saveFile << "; " << histArr[i];
 		}
 		
-		//add the final \n char
+		//add the final newline
 		saveFile << endl;
 
 		return true;
 	}
 	//otherwise, return false
 	else
+	{
+		cerr << "Save File failed to open" << endl;
 		return false;
+	}
+}
 
+int outputHandler::History::getHistArrVal(int index)
+{
+	return histArr[index];
 }

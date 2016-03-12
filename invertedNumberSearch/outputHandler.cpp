@@ -31,6 +31,10 @@ outputHandler::outputHandler()
 	ofstream outFile("terminatingNum.csv", std::fstream::out | std::fstream::trunc);
 	hist.storeHist(outFile);
 
+	//add credit & contact info
+	outFile << "Data compiled in Stan Slupecki's (github: MisturDust319) 'invertedNumberSearch' program"
+		<< endl;
+
 	//add column names
 	outFile << "Starting number, "
 		<< "terminating Processed #, "
@@ -43,6 +47,11 @@ outputHandler::outputHandler()
 	outFile.open("loopingNum.csv", std::fstream::out | std::fstream::trunc);
 	hist.storeHist(outFile);
 
+	//add credit & contact info
+	outFile << "data compiled in Stan Slupecki's (github: MisturDust319) 'invertedNumberSearch' program"
+		<< endl;
+
+	//add column names
 	outFile << "Starting number, "
 		<< "Looping Processed #, "
 		<< "Last " << HIST_ARRAY_SIZE << " numbers, "

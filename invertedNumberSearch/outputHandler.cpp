@@ -1,6 +1,6 @@
 #include "outputHandler.h"
 
-#include <limits>
+#include <climits>
 //needed to get max int size
 //we want to find as many possible
 //of these number combos as possible

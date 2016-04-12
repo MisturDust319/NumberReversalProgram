@@ -15,7 +15,7 @@
 using namespace std;
 
 //basic constructor
-outputHandler::outputHandler()
+OutputHandler::OutputHandler()
 {
 	//find this compiler's max int size
 	largestNum = INT_MAX;
@@ -66,7 +66,7 @@ outputHandler::outputHandler()
 	startSearch();
 }
 
-int outputHandler::reverseNumber(int num)
+int OutputHandler::reverseNumber(int num)
 {
 	// note the sign of the number
 	// the return val should have
@@ -93,7 +93,7 @@ int outputHandler::reverseNumber(int num)
 
 // starts searching through and sorting
 // ints to see how they reverse
-int outputHandler::startSearch() {
+int OutputHandler::startSearch() {
 
 	//num is used to track the most recent value
 	int num;
@@ -235,7 +235,7 @@ int outputHandler::startSearch() {
 }
 
 
-outputHandler::History::History()
+OutputHandler::History::History()
 	{
 		for (int i = 0; i < HIST_ARRAY_SIZE; i++)
 			histArr[i] = 0;
@@ -244,7 +244,7 @@ outputHandler::History::History()
 
 // pushes data onto the History list & array
 // returns true if successful
-bool outputHandler::History::pushData(int data)
+bool OutputHandler::History::pushData(int data)
 	{
 
 		//temp will hold elem 0 if we need to push
@@ -316,7 +316,7 @@ bool outputHandler::History::pushData(int data)
 // as well as if they are the same size but w/
 // opposite signs (meaning this is will loop)
 // and if they are, return true, false otherwise
-bool outputHandler::History::checkForLoop()
+bool OutputHandler::History::checkForLoop()
 {
 		// return true if there is at least four
 		// entries in the History
@@ -345,7 +345,7 @@ bool outputHandler::History::checkForLoop()
 		return false;
 }
 
-void outputHandler::History::printHistArr()
+void OutputHandler::History::printHistArr()
 {
 	for (int i = 0; i < HIST_ARRAY_SIZE; i++)
 	{
@@ -354,7 +354,7 @@ void outputHandler::History::printHistArr()
 	}
 }
 
-void outputHandler::History::clearHist()
+void OutputHandler::History::clearHist()
 {
 	for (int i = 0; i < HIST_ARRAY_SIZE; i++)
 		histArr[i] = 0;
@@ -368,7 +368,7 @@ void outputHandler::History::clearHist()
 	temp.close();
 }
 
-bool outputHandler::History::storeHist(ofstream& saveFile)
+bool OutputHandler::History::storeHist(ofstream& saveFile)
 {
 	ifstream histFile("TEMP.CSV", ios::in);
 	if (histFile.is_open())
@@ -421,7 +421,7 @@ bool outputHandler::History::storeHist(ofstream& saveFile)
 	}
 }
 
-int outputHandler::History::getHistArrVal(int index)
+int OutputHandler::History::getHistArrVal(int index)
 {
 	return histArr[index];
 }

@@ -45,7 +45,7 @@ int main()
 		 << "*****~programmer:  Stan Slupecki~~***" << endl
 		 << "*****~git-hub:     MisturDust319~~***" << endl
 		 << "*************************************" << endl;
-	outputHandler outputDev;
+	OutputHandler outputDev;
 	cout << "*************************************" << endl
 		 << "***---------finished--------------***" << endl
 		 << "*************************************" << endl;

@@ -11,10 +11,10 @@
 
 using namespace::std;
 
-class outputHandler
+class OutputHandler
 {
 public:
-	outputHandler();
+	OutputHandler();
 
 private:
 	
